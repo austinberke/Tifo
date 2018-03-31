@@ -1,3 +1,4 @@
+ls
 from __future__ import print_function
 import moviepy.editor as mp
 import os
@@ -24,6 +25,7 @@ def main():
 
 # Resize the video to the given dimensions and save
 def resize(videoFile):
+    eprint ("Starting resizing")
     clip = mp.VideoFileClip(videoFile)
     clip_resized = clip.resize(newsize=(width, height))
     clip_resized.write_videofile(resizedVideoFile)

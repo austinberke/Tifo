@@ -23,10 +23,25 @@ app.set('view engine', 'ejs')
 
 // Functions
 
+var spawn = require("child_process").spawn,
+    py = spawn('python',["./scripts/videoToJson.py", "../media/video.mp4", 36, 48]),
+    jsonString = "";
+    
+py.stdout.on('data', function(data){
+  jsonString += data.toString();
+  console.log(jsonString);
+});
+const colors = JSON.parse(JSON.stringify(jsonString));
+console.log(colors);
+
 const validLocations = ["1","2","3"];
 
 function validateLocation(location) {
   return validLocations.includes(location);
+}
+
+function getColors() {
+
 }
 
 // Client Routes
