@@ -1,6 +1,11 @@
 <html>
 <head><title>Tifo</title></head>
 <body>
+  <% if (typeof location !== 'undefined') { %>
+    <div>
+      <%= location %>
+    </div>
+  <% } %>
   <script src="/socket.io/socket.io.js"></script>
   <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.0.5/es5-shim.min.js"></script>
