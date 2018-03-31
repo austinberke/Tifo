@@ -16,8 +16,13 @@ app.get('/', (req, res) => {
   res.render('index');
 });
 
+app.get('/admin', (req, res) => {
+  res.render('admin');
+});
+
 app.get('/start', (req, res) => {
-  res.render('start');
+  console.log("Broadcasting")
+  io.emit('start', { for: 'everyone' });
 });
 
 io.on('connection', function(socket){
