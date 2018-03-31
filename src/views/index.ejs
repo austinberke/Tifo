@@ -1,14 +1,20 @@
 <html>
-<head><title>Tifo</title></head>
+<head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <title>Tifo</title>
+</head>
 <body>
   <% if (typeof error !== 'undefined') { %>
     <div>
       Invalid location
     </div>
   <% } %>
+
   <form action="" method="POST">
-    <input type="text" name="location">
-    <input type="submit">
+    <div class="form-group">
+      <input type="text" name="location">
+      <input class="btn btn-dark" type="submit">
+    </div>
   </form>
 </body>
 </html>
