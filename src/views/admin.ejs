@@ -1,12 +1,15 @@
 <html>
-<head><title>Test</title></head>
+<head><title>Admin</title></head>
 <body>
   <form action="/start">
     <input type="submit" value="Start">
   </form>
-  <script src="/socket.io/socket.io.js"></script>
-  <script>
-    var socket = io();
-  </script>
+  <form action="/stop">
+    <input type="submit" value="Stop">
+  </form>
+  <br /><br />
+  <div>
+    # of connected clients: <%= clients %>
+  </div>
 </body>
 </html>

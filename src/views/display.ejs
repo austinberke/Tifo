@@ -1,0 +1,41 @@
+<html>
+<head><title>Display</title></head>
+<body>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.0.5/es5-shim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/es6-shim/0.23.0/es6-shim.min.js"></script>
+  <script src="/timesync/timesync.js"></script>
+  <script>
+  // Synchronize time
+  var ts = timesync.create({
+    server: '/timesync',
+    interval: 1000
+  });
+
+  setInterval(function () {
+    serverTime = new Date(ts.now());
+  }, 1000);
+
+  // Receive socket connection
+  var socket = io();
+  var colors = ['blue','green','yellow']
+  i = 0;
+  socket.on('start', (data) => {
+    setTimeout(() => {
+      interval = setInterval(() => {
+        document.body.style.backgroundColor = colors[i++%3]; },
+        100);
+      },
+      new Date(data.time).getTime() - new Date(ts.now()).getTime()
+    );
+  });
+
+  socket.on('stop', (data) => {
+    clearInterval(interval);
+    i = 0;
+    document.body.style.backgroundColor = 'white'
+  });
+  </script>
+  </body>
+  </html>
