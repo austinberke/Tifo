@@ -4,6 +4,7 @@ import cv2
 from PIL import Image
 import json
 import re
+import sys
 
 originalVideoFile = "/Users/alihashemi/Desktop/video.mp4"
 resizedVideoFile = "/Users/alihashemi/Desktop/resized.mp4"
