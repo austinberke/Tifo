@@ -1,5 +1,5 @@
 <html>
-<head><title>Display</title></head>
+<head><title>Tifo</title></head>
 <body>
   <script src="/socket.io/socket.io.js"></script>
   <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
@@ -19,7 +19,7 @@
 
   // Receive socket connection
   var socket = io();
-  var colors = ['blue','green','yellow']
+  var colors = <%- JSON.stringify(colors) %>
   i = 0;
   socket.on('start', (data) => {
     setTimeout(() => {

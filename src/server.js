@@ -8,7 +8,7 @@ const io = require('socket.io')(http);
 var timesyncServer = require('timesync/server');
 
 // Constants
-const PORT = 8080;
+const PORT = process.env.NODE_PORT || 8080;
 
 // App
 
@@ -19,7 +19,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/display', (req, res) => {
-  res.render('display');
+  res.render('display', {colors: ['green','blue']} );
 });
 
 app.get('/admin', (req, res) => {
@@ -51,5 +51,5 @@ io.on('connection', function(socket){
 app.use('/timesync', timesyncServer.requestHandler);
 
 http.listen(PORT, function(){
-  console.log('listening on *:8080');
+  console.log('listening on *:' + PORT);
 });
