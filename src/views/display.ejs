@@ -29,8 +29,8 @@
   socket.on('start', (data) => {
     setTimeout(() => {
       interval = setInterval(() => {
-        document.body.style.backgroundColor = colors[i++%3]; },
-        100);
+        document.body.style.backgroundColor = colors[i++]; },
+        33);
       },
       new Date(data.time).getTime() - new Date(ts.now()).getTime()
     );
