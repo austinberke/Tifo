@@ -6,42 +6,80 @@
   <title>Tifo</title>
 
   <style>
-    body {
-      height: 100%;
-      background: #22313f;
-    }
+  body {
+    height: 100%;
+    background: #22313f;
+  }
+  @media only screen and (max-width: 768px) {
     #location {
-      width: 100px;
-      height: 100px;
-      font-size: 30pt;
+      width: 400px;
+      height: 400px;
+      font-size: 100pt;
       text-align: center;
-      margin-right: 10px;
+      margin: 40 auto;
     }
     .btn {
-      width: 100px;
-      height: 100px;
+      width: 400px;
+      height: 300px;
+      font-size: 70pt;
+      margin: 0 auto;
+      box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      -webkit-box-sizing: border-box;
+      border: 4px solid #674172;
     }
     .form-group {
+      margin-left: auto;
+    }
+    .alert {
+      width: 400px;
+      font-size: 30pt;
+      margin: 40 auto;
+    }
+  }
+  @media only screen and (min-width: 768px) {
+    .container {
+      width: 500px;
+    }
+    #logo {
+      height: 20%
+    }
+    #location {
+      width: 200px;
+      height: 200px;
+      font-size: 50pt;
+      text-align: center;
       margin: 0 auto;
     }
+    .btn {
+      width: 200px;
+      height: 200px;
+      font-size: 30pt;
+      margin: 0 auto;
+      box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      -webkit-box-sizing: border-box;
+      border: 4px solid #674172;
+    }
+  }
 
   </style>
 </head>
 <body onLoad="document.getElementById('location').focus();">
-  <div class="container">
-      <div class="center-block">
-        <form action="" method="POST">    
-          <div class="form-group">
-            <input placeholder="#" type="text" id="location" name="location">
-            <input class="btn btn-dark" type="submit">
-          </div>
-        </form>
+  <div class="container text-center">
+    <img id="logo" src="https://i.imgur.com/VhRt6gz.png">
+    <form action="" method="POST">
+      <div class="form-group form-inline center-block">
+        <input placeholder="A13" type="text" id="location" name="location"><br />
+        <input class="btn btn-dark" type="submit" value="Let's Go">
       </div>
-      <% if (typeof error !== 'undefined') { %>
-        <div class="alert alert-danger" role="alert">
-          Invalid location, please enter row and number (ex. A12).
-        </div>
-        <% } %>
+    </form>
+
+    <% if (typeof error !== 'undefined') { %>
+      <div class="alert alert-danger" role="alert">
+        Invalid location, please enter row and number (ex. A12).
+      </div>
+      <% } %>
     </div>
   </body>
   </html>
