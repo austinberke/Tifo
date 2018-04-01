@@ -60,7 +60,13 @@ app.post('/', (req, res) => {
 
   var check_valid = validateLocation(req.body.location);
   if (typeof video !== undefined && typeof check_valid != "undefined" && check_valid != null && check_valid.length != null && check_valid.length > 0){
-    res.render('display', {location: req.body.location, colors: video[check_valid[0]][check_valid[1]]} );
+    var vid_res = video.slice(check_valid[0]*resolution.width, check_valid[0]*resolution.width + resolution.width);
+    var idkman = []
+    for (var j = 0; j < vid_res.length; j++){
+      vid_res[j].splice(check_valid[1]*resolution.height, check_valid[1]*resolution.height + resolution.height);
+    }
+
+    res.render('display', {location: req.body.location, colors: vid_res, width: resolution.width, height: resolution.height} );
   }
   else {
     res.render('index', {error: true})
