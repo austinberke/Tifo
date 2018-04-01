@@ -24,12 +24,21 @@
 
   // Receive socket connection
   var socket = io();
-  var colors = ['red','green','blue']
-  // var colors = <%- JSON.stringify(colors) %>
+  //var colors = ['red','green','blue']
+  var colors = <%- JSON.stringify(colors) %>
   i = 0;
   socket.on('start', (data) => {
+    startTime = new Date(data.time).getTime();
     setTimeout(() => {
       interval = setInterval(() => {
+        if (i >= 30 && i%30==0) {
+          console.log("Resizing index")
+          currentTime = new Date(ts.now()).getTime();
+          numSeconds = Math.floor((currentTime-startTime)/1000);
+          expectedIndex = 30*numSeconds;
+          i = expectedIndex;
+        }
+        console.log(i);
         document.body.style.backgroundColor = colors[i++]; },
         33);
       },
