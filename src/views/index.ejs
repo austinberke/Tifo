@@ -6,20 +6,33 @@
   <title>Tifo</title>
 
   <style>
-  #location {
-    width: 100px;
-    height: 100px;
-    font-size: 30pt;
-    text-align: center;
-  }
+    body {
+      height: 100%;
+      background: #22313f;
+    }
+    #location {
+      width: 100px;
+      height: 100px;
+      font-size: 30pt;
+      text-align: center;
+      margin-right: 10px;
+    }
+    .btn {
+      width: 100px;
+      height: 100px;
+    }
+    .form-group {
+      margin: 0 auto;
+    }
+
   </style>
 </head>
 <body onLoad="document.getElementById('location').focus();">
   <div class="container">
       <div class="center-block">
-        <form action="" method="POST">
+        <form action="" method="POST">    
           <div class="form-group">
-            <input type="text" id="location" name="location">
+            <input placeholder="#" type="text" id="location" name="location">
             <input class="btn btn-dark" type="submit">
           </div>
         </form>
