@@ -22,17 +22,20 @@ const PORT = process.env.NODE_PORT || 8080;
 app.set('view engine', 'ejs')
 
 // Functions
+var spawn = require('child_process').spawn,
+    py = spawn('python', ['./scripts/videoToJson.py', '../media/video.mp4', 48, 36]),
+    string = "";
 
-var spawn = require("child_process").spawn,
-    py = spawn('python',["./scripts/videoToJson.py", "../media/video.mp4", 36, 48]),
-    jsonString = "";
-    
 py.stdout.on('data', function(data){
-  jsonString += data.toString();
-  console.log(jsonString);
+  string += data.toString();
+  console.log(string);
 });
-const colors = JSON.parse(JSON.stringify(jsonString));
-console.log(colors);
+
+py.stdout.on('end', function(){
+  console.log(string);
+});
+
+
 
 const validLocations = ["1","2","3"];
 

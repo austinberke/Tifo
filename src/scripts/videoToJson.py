@@ -1,4 +1,3 @@
-ls
 from __future__ import print_function
 import moviepy.editor as mp
 import os
@@ -14,6 +13,7 @@ height = int(sys.argv[2])
 width = int(sys.argv[3])
 resizedVideoFile = sys.path[0] + "/temp/resized.mp4"
 framesDirectory = sys.path[0] + "/temp/frames"
+jsonFile = sys.path[0] + "/scripts/video.json"
 
 def main():
     prep()
@@ -77,7 +77,9 @@ def generateList():
 
 # Writes data to stdout
 def outputJson(data):
-    print (json.dumps(data))
+    #print (json.dumps(data))
+    with open(jsonFile, 'w') as outfile:
+        json.dump(data, jsonFile)
 
 # Converts a tupil (R, G, B) to a hex code
 def rgbToHex(rgb):
