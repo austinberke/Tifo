@@ -70,7 +70,6 @@ app.post('/', (req, res) => {
 // Administration Routes
 
 app.get('/admin', (req, res) => {
-  console.log(io.sockets.sockets);
   res.render('admin', {
     resWidth: resolution.width, resHeight: resolution.height});
   });
@@ -114,7 +113,7 @@ app.get('/admin', (req, res) => {
   });
 
   app.get('/clients', (req, res) => {
-    res.json(Object.keys(io.sockets.sockets));
+    res.json(Object.keys(io.sockets.sockets).length);
   });
 
   app.post('/importMap', (req, res) => {
