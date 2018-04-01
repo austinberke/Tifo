@@ -25,18 +25,18 @@ def main():
 
 # Resize the video to the given dimensions and save
 def resize(videoFile):
-    eprint ("Starting resizing")
+    print ("Starting resizing")
     clip = mp.VideoFileClip(videoFile)
     clip_resized = clip.resize(newsize=(width, height))
     clip_resized.write_videofile(resizedVideoFile)
-    eprint ("Finished Rezising the video")
+    print ("Finished Rezising the video")
 
 # Save all the frames of a given video as png files into the given directory name
 def saveFrames(videoFileName):
     if not os.path.exists(framesDirectory):
         os.makedirs(framesDirectory)
 
-    eprint ("Saving frames of video...")
+    print ("Saving frames of video...")
     video = cv2.VideoCapture(videoFileName)
     didRead, frame = video.read()
     count = 0;
@@ -50,7 +50,7 @@ def saveFrames(videoFileName):
 # list[row in frame][column in frame][frame number]
 def generateList():
     if not os.path.exists(framesDirectory):
-        eprint ("Error: {} does not exist".format(framesDirectory))
+        print ("Error: {} does not exist".format(framesDirectory))
         return
 
     # Initialize frames list
@@ -62,7 +62,7 @@ def generateList():
             row.append(colors)
         frames.append(row)
 
-    eprint ("Generating list of pixel colors...")
+    print ("Generating list of pixel colors...")
     for fil in sort(os.listdir(framesDirectory)):
         if fil.endswith(".png"):
             with Image.open(framesDirectory + "/" + fil) as pixelsOfFrame:
@@ -92,8 +92,8 @@ def sort(data):
     return sorted(data, key=alphanum_key)
 
 # Print to stderr
-def eprint(*args, **kwargs):
-    print(*args, file=sys.stderr, **kwargs)
+# def print(*args, **kwargs):
+#     print(*args, file=sys.stderr, **kwargs)
 
 # Creates temp files
 def prep():
