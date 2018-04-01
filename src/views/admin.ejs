@@ -71,21 +71,13 @@
     </div>
     <div class="row">
       <div class="col-12">
-        <div class="map">
-          <% for (var i = mapHeight-1; i >= 0; i--) { %>
-            <% for (var j = 0; j < mapWidth; j++) { %>
-              <div id="<%= i %>-<%= j %>" class="client"></div>
-            <% } %>
-              <br />
-          <% } %>
 
-        </div>
       </div>
     </div>
   </div>
 
   <script>
-    setInterval(() => {$("#clients").getJSON("/clients").length}, 1000);
+    setInterval(() => {$("#clients").load("/clients").length}, 1000);
   </script>
 
 </body>
