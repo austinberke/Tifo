@@ -23,12 +23,16 @@ app.set('view engine', 'ejs')
 
 // Functions
 var spawn = require('child_process').spawn,
-    py = spawn('python', ['./scripts/videoToJson.py', '../media/video.mp4', 48, 36]),
+    py = spawn('python', ['./scripts/videoToJson.py', './media/video.mp4', 48, 36]),
     string = "";
 
 py.stdout.on('data', function(data){
   string += data.toString();
   console.log(string);
+});
+
+py.stderr.on('data', function(data){
+  console.log(data.toString());
 });
 
 py.stdout.on('end', function(){
