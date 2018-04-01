@@ -23,7 +23,7 @@ const PORT = process.env.NODE_PORT || 8080;
 
 const video = require('./video.json') || undefined;
 
-let resolution = {width: 1, height: 1};
+var resolution = {width: 1, height: 1};
 
 app.set('view engine', 'ejs')
 
@@ -45,8 +45,8 @@ function validateLocation(location) {
 
 function getVideoDimensions() {
   return {
-    width: seat_map.length * resolution.width,
-    height: seat_map[0].length * resolution.height
+    width: seat_map[0].length * resolution.width,
+    height: seat_map.length * resolution.height
   };
 }
 
@@ -62,11 +62,11 @@ app.post('/', (req, res) => {
   var check_valid = validateLocation(req.body.location);
   if (typeof video !== undefined && typeof check_valid != "undefined" && check_valid != null && check_valid.length != null && check_valid.length > 0){
     var colorsList = [];
-    console.log(check_valid[0]);
-    for (var k = check_valid[0]*resolution.height; k < check_valid[0]*resolution.height+resolution.height; k++) {
+    for (var k = parseInt(check_valid[0])*parseInt(resolution.height); k < parseInt(check_valid[0]) * parseInt(resolution.height) + parseInt(resolution.height); k++) {
       var list = [];
-      for (var p = check_valid[1]*resolution.width; p < check_valid[1]*resolution.width+resolution.width; p++) {
-        
+      for (var p = parseInt(check_valid[1])*parseInt(resolution.width); p < parseInt(check_valid[1])*parseInt(resolution.width)+parseInt(resolution.width); p++) {
+         // console.log('k: ' + k);
+         // console.log('p: ' + p);
         list.push(video[k][p]);
       }
       colorsList.push(list);
@@ -106,7 +106,7 @@ app.get('/admin', (req, res) => {
   app.post('/processVideo', (req, res) => {
     var dimensions = getVideoDimensions();
     var spawn = require('child_process').spawn,
-    py = spawn('python', ['./scripts/videoToJson.py', './assets/video.mp4', dimensions.width, dimensions.height]),
+    py = spawn('python', ['./scripts/videoToJson.py', './assets/video.mp4', dimensions.height, dimensions.width,]),
     string = "";
 
     py.stdout.on('data', function(data){
@@ -130,7 +130,7 @@ app.get('/admin', (req, res) => {
   });
 
   app.post('/importMap', (req, res) => {
-
+    seat_map = [];
     const csvFilePath='./assets/map.csv'
     csv({noheader:true})
     .fromFile(csvFilePath)
@@ -147,7 +147,6 @@ app.get('/admin', (req, res) => {
       while (seat_map[seat_map.length-1].length == 0){
         seat_map.splice(-1,1);
       }
-      console.log(seat_map)
     })
 
     res.redirect('/admin');

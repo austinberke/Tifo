@@ -51,11 +51,11 @@
     startTime = new Date(data.time).getTime();
     setTimeout(() => {
       interval = setInterval(() => {
-        if (i >= 30 && i%30==0) {
+        if (i >= 25 && i%25==0) {
           console.log("Resizing index")
           currentTime = new Date(ts.now()).getTime();
           numSeconds = Math.floor((currentTime-startTime)/1000);
-          expectedIndex = 30*numSeconds;
+          expectedIndex = 25*numSeconds;
           i = expectedIndex;
         }
         console.log(i);
@@ -67,7 +67,7 @@
         }
         i++;
       },
-        33);
+        40);
       },
       new Date(data.time).getTime() - new Date(ts.now()).getTime()
     );
