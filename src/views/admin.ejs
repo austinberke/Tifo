@@ -51,20 +51,21 @@
       <div class="col-6">
         <div class="alert alert-success">
           <form action="/setResolution" method="post">
-            Set resolution<br>
+            1. Set resolution<br>
             <input type="text" class="resolution" name="w" value="<%= resWidth %>">
             by
             <input type="text" class="resolution" name="h" value="<%= resHeight %>">
             <input class="btn" type="submit" value="Set">
           </form>
-          <form action="/processVideo" method="post">
-            Process Video<br>
-            <input class="btn" type="submit" value="Process">
-          </form>
           <form action="/importMap" method="post">
-            Load Map CSV<br>
+            2. Load Map CSV<br>
             <input class="btn" type="submit" value="Load">
           </form>
+          <form action="/processVideo" method="post">
+            3. Process Video<br>
+            <input class="btn" type="submit" value="Process">
+          </form>
+
 
         </div>
       </div>
