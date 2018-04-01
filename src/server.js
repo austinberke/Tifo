@@ -58,15 +58,21 @@ app.get('/', (req, res) => {
 
 app.post('/', (req, res) => {
 
+
   var check_valid = validateLocation(req.body.location);
   if (typeof video !== undefined && typeof check_valid != "undefined" && check_valid != null && check_valid.length != null && check_valid.length > 0){
-    var vid_res = video.slice(check_valid[0]*resolution.width, check_valid[0]*resolution.width + resolution.width);
-    var idkman = []
-    for (var j = 0; j < vid_res.length; j++){
-      vid_res[j].splice(check_valid[1]*resolution.height, check_valid[1]*resolution.height + resolution.height);
+    var colorsList = [];
+    console.log(check_valid[0]);
+    for (var k = check_valid[0]; k < check_valid[0]+resolution.height; k++) {
+      var list = [];
+      for (var p = check_valid[1]; p < check_valid[1]+resolution.width; p++) {
+        list.push(video[k][p]);
+      }
+      colorsList.push(list);
     }
 
-    res.render('display', {location: req.body.location, colors: vid_res, width: resolution.width, height: resolution.height} );
+
+    res.render('display', {location: req.body.location, colors: colorsList, width: resolution.width, height: resolution.height} );
   }
   else {
     res.render('index', {error: true})
@@ -128,9 +134,12 @@ app.get('/admin', (req, res) => {
     csv({noheader:true})
     .fromFile(csvFilePath)
     .on('csv',(csvRow, rowIndex)=>{ // this func will be called 3 times
-      seat_map.push([]);
-      for (var j = 0; j < csvRow.length; j++){
-        seat_map[rowIndex][j] = csvRow[j];
+
+      if (typeof csvRow != "undefined" && csvRow != null && csvRow.length != null && csvRow.length > 0) {
+        seat_map.push([]);
+        for (var j = 0; j < csvRow.length; j++){
+          seat_map[rowIndex][j] = csvRow[j];
+        }
       }
     })
     .on('done',(error)=>{
