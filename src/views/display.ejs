@@ -17,9 +17,9 @@
 <body>
 
   <div class="d-flex flex-column">
-    <% for (var i = 0; i != 5; i++) { %>
+    <% for (var i = 0; i != height; i++) { %>
     <div class="d-flex flex-row">
-      <% for (var j = 0; j != 2; j++) { %>
+      <% for (var j = 0; j != width; j++) { %>
       <div id="<%= i %>-<%= j %>" class="p-2"></div>
       <% } %>
     </div>
@@ -45,6 +45,7 @@
   var socket = io();
   //var colors = ['red','green','blue']
   var colors = <%- JSON.stringify(colors) %>
+  console.log(colors);
   i = 0;
   socket.on('start', (data) => {
     startTime = new Date(data.time).getTime();
@@ -58,9 +59,10 @@
           i = expectedIndex;
         }
         console.log(i);
-        for (var y = 0; y != height; i++) {
-          for (var x = 0; x != width; j++) {
-            $("#${y}-${x}").css('background-color', colors[y][x][i]);
+        for (var y = 0; y != <%= height %>; y++) {
+          for (var x = 0; x != <%= width %>; x++) {
+            var id = "#"+y+"-"+x;
+            $(id).css('background-color', colors[y][x][i]);
           }
         }
         i++;
