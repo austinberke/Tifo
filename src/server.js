@@ -63,9 +63,10 @@ app.post('/', (req, res) => {
   if (typeof video !== undefined && typeof check_valid != "undefined" && check_valid != null && check_valid.length != null && check_valid.length > 0){
     var colorsList = [];
     console.log(check_valid[0]);
-    for (var k = check_valid[0]; k < check_valid[0]+resolution.height; k++) {
+    for (var k = check_valid[0]*resolution.height; k < check_valid[0]*resolution.height+resolution.height; k++) {
       var list = [];
-      for (var p = check_valid[1]; p < check_valid[1]+resolution.width; p++) {
+      for (var p = check_valid[1]*resolution.width; p < check_valid[1]*resolution.width+resolution.width; p++) {
+        
         list.push(video[k][p]);
       }
       colorsList.push(list);
