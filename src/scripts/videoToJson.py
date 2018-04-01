@@ -13,7 +13,7 @@ height = int(sys.argv[2])
 width = int(sys.argv[3])
 resizedVideoFile = sys.path[0] + "/temp/resized.mp4"
 framesDirectory = sys.path[0] + "/temp/frames"
-jsonFile = sys.path[0] + "/scripts/video.json"
+jsonFile = sys.path[0] + "/../video.json"
 
 def main():
     prep()
@@ -79,7 +79,7 @@ def generateList():
 def outputJson(data):
     #print (json.dumps(data))
     with open(jsonFile, 'w') as outfile:
-        json.dump(data, jsonFile)
+        json.dump(data, outfile)
 
 # Converts a tupil (R, G, B) to a hex code
 def rgbToHex(rgb):
