@@ -1,11 +1,30 @@
 <html>
-<head><title>Tifo</title></head>
+<head>
+  <title>Tifo</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <style>
+    .p-2 {
+      width:100%;
+    }
+    .flex-row {
+      height:100%;
+    }
+    .d-flex {
+      max-height:100%
+    }
+  </style>
+</head>
 <body>
-  <% if (typeof location !== 'undefined') { %>
-    <div>
-      <%= location %>
+
+  <div class="d-flex flex-column">
+    <% for (var i = 0; i != 5; i++) { %>
+    <div class="d-flex flex-row">
+      <% for (var j = 0; j != 2; j++) { %>
+      <div id="<%= i %>-<%= j %>" class="p-2"></div>
+      <% } %>
     </div>
-  <% } %>
+    <% } %>
+  </div>
   <script src="/socket.io/socket.io.js"></script>
   <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.0.5/es5-shim.min.js"></script>
@@ -39,7 +58,13 @@
           i = expectedIndex;
         }
         console.log(i);
-        document.body.style.backgroundColor = colors[i++]; },
+        for (var y = 0; y != height; i++) {
+          for (var x = 0; x != width; j++) {
+            $("#${y}-${x}").css('background-color', colors[y][x][i]);
+          }
+        }
+        i++;
+      },
         33);
       },
       new Date(data.time).getTime() - new Date(ts.now()).getTime()
