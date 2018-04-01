@@ -18,26 +18,27 @@ app.use(express.urlencoded()); // to support URL-encoded bodies
 
 // Constants
 const PORT = process.env.NODE_PORT || 8080;
+const video = require('./video.json');
 
 app.set('view engine', 'ejs')
 
 // Functions
-var spawn = require('child_process').spawn,
-    py = spawn('python', ['./scripts/videoToJson.py', './media/video.mp4', 48, 36]),
-    string = "";
-
-py.stdout.on('data', function(data){
-  string += data.toString();
-  console.log(string);
-});
-
-py.stderr.on('data', function(data){
-  console.log(data.toString());
-});
-
-py.stdout.on('end', function(){
-  console.log(string);
-});
+// var spawn = require('child_process').spawn,
+//     py = spawn('python', ['./scripts/videoToJson.py', './media/video.mp4', 48, 36]),
+//     string = "";
+//
+// py.stdout.on('data', function(data){
+//   string += data.toString();
+//   console.log(string);
+// });
+//
+// py.stderr.on('data', function(data){
+//   console.log(data.toString());
+// });
+//
+// py.stdout.on('end', function(){
+//   console.log(string);
+// });
 
 
 
@@ -59,7 +60,7 @@ app.get('/', (req, res) => {
 
 app.post('/', (req, res) => {
   if (validateLocation(req.body.location)) {
-    res.render('display', {location: req.body.location, colors: ['green','blue']} );
+    res.render('display', {location: req.body.location, colors: video[20][30]} );
   }
   else {
     res.render('index', {error: true})
