@@ -7,8 +7,6 @@ const io = require('socket.io')(http);
 
 const csv = require('csvtojson');
 
-const fs = require('fs');
-
 var timesyncServer = require('timesync/server');
 
 var bodyParser = require('body-parser')
@@ -22,7 +20,8 @@ app.use(express.urlencoded()); // to support URL-encoded bodies
 
 // Constants
 const PORT = process.env.NODE_PORT || 8080;
-const video = require('./video.json');
+
+const video = require('./video.json') || undefined;
 
 let resolution = {width: 1, height: 1};
 let map = {width: 4, height: 4};
@@ -46,8 +45,8 @@ app.get('/', (req, res) => {
 });
 
 app.post('/', (req, res) => {
-  if (validateLocation(req.body.location)) {
-    res.render('display', {location: req.body.location, colors: video[20][30]} );
+  if (typeof video !== undefined && validateLocation(req.body.location)) {
+    res.render('display', {location: req.body.location, colors: video[20][30] } );
   }
   else {
     res.render('index', {error: true})
