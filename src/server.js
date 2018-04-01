@@ -135,7 +135,7 @@ app.get('/admin', (req, res) => {
     .fromFile(csvFilePath)
     .on('csv',(csvRow, rowIndex)=>{ // this func will be called 3 times
 
-      if (typeof csvRow != "undefined" && csvRow != null && csvRow.length != null && csvRow.length > 0) {
+      if (typeof csvRow !== "undefined" && csvRow !== null && csvRow.length !== null && csvRow.length > 0) {
         seat_map.push([]);
         for (var j = 0; j < csvRow.length; j++){
           seat_map[rowIndex][j] = csvRow[j];
@@ -143,8 +143,12 @@ app.get('/admin', (req, res) => {
       }
     })
     .on('done',(error)=>{
+      while (seat_map[seat_map.length-1].length == 0){
+        seat_map.splice(-1,1);
+      }
       console.log(seat_map)
     })
+
     res.redirect('/admin');
   });
 
