@@ -1,4 +1,5 @@
 .DS_Store
 node_modules
-.png
+*.png
+*.mp4
 video.json

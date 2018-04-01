@@ -1,18 +1,92 @@
 <html>
 <head>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
   <title>Tifo Admin</title>
+  <style>
+    .resolution {
+      width: 30px;
+      height: 38px;
+      font-size: 10pt;
+      text-align: center;
+    }
+    .client {
+      display: inline-block;
+      width: 30px;
+      height: 30px;
+      background-color: #9f9f9f;
+      padding:1px;
+    }
+
+    .client-active {
+      background-color: #FF0000;
+    }
+  </style>
 </head>
 <body>
-  <form action="/start">
-    <input type="submit" value="Start">
-  </form>
-  <form action="/stop">
-    <input type="submit" value="Stop">
-  </form>
-  <br /><br />
-  <div>
-    # of connected clients: <%= clients %>
+  <div class="container" style="padding: 30px;">
+    <div class="text-center">
+      <h2>Tifo Admin Panel</h2>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <div class="alert alert-secondary text-center">
+          # of connected clients: <span id="clients">...</span>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-6">
+        <div class="alert alert-primary">
+          Playback Control<br>
+          <form action="/start">
+            <input class="btn" type="submit" value="Start">
+          </form>
+          <form action="/stop">
+            <input class="btn" type="submit" value="Stop">
+          </form>
+          <br /><br />
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="alert alert-success">
+          <form action="/setResolution" method="post">
+            Set resolution<br>
+            <input type="text" class="resolution" name="w" value="<%= resWidth %>">
+            by
+            <input type="text" class="resolution" name="h" value="<%= resHeight %>">
+            <input class="btn" type="submit" value="Set">
+          </form>
+          <form action="/processVideo" method="post">
+            Process Video<br>
+            <input class="btn" type="submit" value="Process">
+          </form>
+          <form action="/importMap" method="post">
+            Load Map CSV<br>
+            <input class="btn" type="submit" value="Load">
+          </form>
+
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <div class="map">
+          <% for (var i = mapHeight-1; i >= 0; i--) { %>
+            <% for (var j = 0; j < mapWidth; j++) { %>
+              <div id="<%= i %>-<%= j %>" class="client"></div>
+            <% } %>
+              <br />
+          <% } %>
+
+        </div>
+      </div>
+    </div>
   </div>
+
+  <script>
+    setInterval(() => {$("#clients").getJSON("/clients").length}, 1000);
+  </script>
+
 </body>
 </html>
