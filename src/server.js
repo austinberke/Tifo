@@ -82,7 +82,7 @@ function futureEventTime(seconds) {
 
 app.get('/start', (req, res) => {
   console.log("Broadcasting start")
-  io.emit('start', {time: futureEventTime(2)});
+  io.emit('start', {time: futureEventTime(5)});
 });
 
 app.get('/stop', (req, res) => {
