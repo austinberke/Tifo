@@ -23,7 +23,6 @@ var background ={
                     [
                       { src: 'https://images.pexels.com/photos/305831/pexels-photo-305831.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940' },
                       { src: 'https://images.pexels.com/photos/207241/pexels-photo-207241.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940' },
-                      { src: 'https://images.pexels.com/photos/933967/pexels-photo-933967.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940' }
                     ],
 
                     overlay:'assets/css/overlays/06.png'

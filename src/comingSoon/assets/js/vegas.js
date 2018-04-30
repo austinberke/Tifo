@@ -13,7 +13,7 @@
 
     var defaults = {
         slide:                   0,
-        delay:                   5000,
+        delay:                   3000,
         loop:                    true,
         preload:                 false,
         preloadImage:            false,
@@ -484,7 +484,7 @@
                     this.className  = 'vegas-slide';
 
                     if (this.tagName === 'VIDEO') {
-                        this.className += ' vegas-video';    
+                        this.className += ' vegas-video';
                     }
 
                     if (transition) {
