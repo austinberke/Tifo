@@ -52,9 +52,11 @@ function getVideoDimensions() {
 
 // Client Routes
 
-app.get('/', (req, res) => {
-  res.render('index');
-});
+app.use(express.static("comingSoon"));
+
+// app.get('/', (req, res) => {
+//   res.render('index');
+// });
 
 app.post('/', (req, res) => {
 
@@ -65,8 +67,6 @@ app.post('/', (req, res) => {
     for (var k = parseInt(check_valid[0])*parseInt(resolution.height); k < parseInt(check_valid[0]) * parseInt(resolution.height) + parseInt(resolution.height); k++) {
       var list = [];
       for (var p = parseInt(check_valid[1])*parseInt(resolution.width); p < parseInt(check_valid[1])*parseInt(resolution.width)+parseInt(resolution.width); p++) {
-         // console.log('k: ' + k);
-         // console.log('p: ' + p);
         list.push(video[k][p]);
       }
       colorsList.push(list);

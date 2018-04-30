@@ -7,6 +7,7 @@ import json
 import re
 import sys
 import shutil
+import tqdm
 
 originalVideoFile = sys.argv[1]
 height = int(sys.argv[2])
@@ -25,18 +26,18 @@ def main():
 
 # Resize the video to the given dimensions and save
 def resize(videoFile):
-    print ("Starting resizing")
+    printe("Starting resizing")
     clip = mp.VideoFileClip(videoFile)
     clip_resized = clip.resize(newsize=(width, height))
     clip_resized.write_videofile(resizedVideoFile)
-    print ("Finished Rezising the video")
+    printe("Finished Rezising the video")
 
 # Save all the frames of a given video as png files into the given directory name
 def saveFrames(videoFileName):
     if not os.path.exists(framesDirectory):
         os.makedirs(framesDirectory)
 
-    print ("Saving frames of video...")
+
     video = cv2.VideoCapture(videoFileName)
     didRead, frame = video.read()
     count = 0;
@@ -45,12 +46,13 @@ def saveFrames(videoFileName):
         cv2.imwrite(framesDirectory + "/frame{}.png".format(count), frame)
         didRead, frame = video.read()
         count+=1
+    printe("Finished saving frames of video...")
 
 # Go through a file containing all the frames and create a list in the following format
 # list[row in frame][column in frame][frame number]
 def generateList():
     if not os.path.exists(framesDirectory):
-        print ("Error: {} does not exist".format(framesDirectory))
+        printe("Error: {} does not exist".format(framesDirectory))
         return
 
     # Initialize frames list
@@ -62,8 +64,7 @@ def generateList():
             row.append(colors)
         frames.append(row)
 
-    print ("Generating list of pixel colors...")
-    for fil in sort(os.listdir(framesDirectory)):
+    for fil in tqdm.tqdm(sort(os.listdir(framesDirectory))):
         if fil.endswith(".png"):
             with Image.open(framesDirectory + "/" + fil) as pixelsOfFrame:
                 w, h = pixelsOfFrame.size
@@ -73,13 +74,17 @@ def generateList():
                     col = pixelNumeber%w
                     hexColor = rgbToHex(color)
                     frames[row][col].append(hexColor)
+    printe("Finished generating list of pixel colors...")
     return frames
 
 # Writes data to stdout
 def outputJson(data):
-    #print (json.dumps(data))
-    with open(jsonFile, 'w') as outfile:
+    #printe(json.dumps(data))
+    with open(jsonFile, 'wt') as outfile:
+        outfile.seek(0)
         json.dump(data, outfile)
+        outfile.truncate()
+    printe("Finished saving to JSON file...")
 
 # Converts a tupil (R, G, B) to a hex code
 def rgbToHex(rgb):
@@ -92,8 +97,8 @@ def sort(data):
     return sorted(data, key=alphanum_key)
 
 # Print to stderr
-# def print(*args, **kwargs):
-#     print(*args, file=sys.stderr, **kwargs)
+def printe(*args, **kwargs):
+    print(*args, file=sys.stderr, **kwargs)
 
 # Creates temp files
 def prep():
