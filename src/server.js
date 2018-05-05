@@ -52,11 +52,9 @@ function getVideoDimensions() {
 
 // Client Routes
 
-app.use(express.static("comingSoon"));
-
-// app.get('/', (req, res) => {
-//   res.render('index');
-// });
+app.get('/', (req, res) => {
+  res.render('index');
+});
 
 app.post('/', (req, res) => {
 
